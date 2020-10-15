@@ -144,6 +144,7 @@ function beginTheGameWithPlayer() {
   loseGame.style.transform = "translateY(-30rem)";
   word = wordpicker(wordList).split("");
   showWordOnLose.innerHTML = `"${word.join("")}"`;
+  tries = 0
   livesCounter.innerHTML = 5;
   inputs = [];
   let clearCurrentWord = theWord(word, inputs);
