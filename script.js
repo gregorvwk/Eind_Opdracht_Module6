@@ -106,8 +106,25 @@ const theWord = function (word, inputLetterWords) {
 
 let tries = 0;
 const updateTries = function () {
-  return tries++;
+  tries++
+  return 5 - tries;
 };
+const getNumberOfWrongTries = function(word, inputs) {
+  let wrongLetters = inputs.filter(function (letter) {
+    return !word.includes(letter);
+  });
+  return wrongLetters.length; //x, q, l
+}
+const getGameResult = function(word, inputs) {
+  if (isWordGuessed(word, inputs)) {
+    winOrLoseTheGame();
+    return "Win"
+  } else if (getNumberOfWrongTries(word, inputs) >= 5) {
+    winOrLoseTheGame();
+    return "Lose"
+  }
+  return false
+}
 
 const guessLetter = function () {
   if (gameOver) {
@@ -119,21 +136,22 @@ const guessLetter = function () {
     return;
   }
   if (!word.includes(inputGuessLetter)) {
-    updateTries();
-    livesCounter.innerHTML = 5 - tries;
+    let amountTries = updateTries()
+    console.log(amountTries)
+    livesCounter.innerHTML = amountTries;
   }
   inputs.push(inputGuessLetter);
   let wordIncludesLetter = theWord(word, inputs);
   wordToGuess.innerHTML = wordIncludesLetter.join(" ");
   let resultWrongLetters = isLetterWrong(word, inputs);
   guessedWrongLetters.innerHTML = resultWrongLetters.join(" ");
-  if (isWordGuessed(word, inputs)) {
-    winOrLoseTheGame();
+
+  // getGameResult(word, inputs)
+ if(getGameResult(word, inputs) === "Win"){
     winOrLoseTheGameAnimation(winGame);
-  } else if (tries >= 5) {
-    winOrLoseTheGame();
+ } else if(getGameResult(word, inputs) === "Lose"){
     winOrLoseTheGameAnimation(loseGame);
-  }
+ }
 };
 
 function beginTheGameWithPlayer() {
@@ -170,4 +188,5 @@ module.exports = [
   theWord,
   winOrLoseTheGame,
   updateTries,
+  getGameResult
 ];

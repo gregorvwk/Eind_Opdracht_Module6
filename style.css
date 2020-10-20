@@ -4,6 +4,7 @@ body {
   margin: 0 auto;
   text-align: center;
   display: grid;
+  gap: 0px 0px;
   font-weight: lighter;
   overflow: hidden;
 }
@@ -11,6 +12,19 @@ body {
 h2, h3 {
   margin: 0 auto;
   padding-top: 2rem;
+}
+
+.guess-container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+.letters_guessed-container {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.wrong_letters-container {
+  grid-area: 1 / 2 / 2 / 3;
 }
 
 /* win and lose styles */

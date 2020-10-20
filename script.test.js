@@ -5,6 +5,7 @@ const [
   theWord,
   winOrLoseTheGame,
   updateTries,
+  getGameResult
 ] = require("./script.js");
 
 test("sould pick a word", () => {
@@ -21,11 +22,15 @@ test("should display guessed letters", () => {
   expect(theWord(["vis"], ["x"])).toMatchObject(["_"]);
 });
 test("Should win the game", () => {
-  expect(winOrLoseTheGame()).toBe(true);
+  expect(getGameResult("vis".split(""), ["v", "i", "s"])).toBe("Win");
+  expect(getGameResult("vis".split(""), ["v", "s", "i"])).toBe("Win");
+  expect(getGameResult("vis".split(""), ["z", "v", "q", "i", "s"])).toBe("Win");
 });
-test("Should lose the game", () => {
-  expect(winOrLoseTheGame()).toBe(true);
+test("If tries is greater of equal to 5, lose the game", () => {
+    expect(getGameResult("vis".split(""), ["v", "x", "s", "q", "l", "h", "p"])).toBe("Lose");
+    expect(getGameResult("vis".split(""), ["x", "q", "l", "h", "p"])).toBe("Lose");
+    expect(getGameResult("vis".split(""), ["v", "v", "v", "x", "s", "q", "l", "h", "p"])).toBe("Lose");
 });
-test("should show the amount of tries", () => {
-  expect(updateTries()).toBe(0);
+test("should check how many tries are left", () => {
+  expect(updateTries()).toBe(4);
 });
